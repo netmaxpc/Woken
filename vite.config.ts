@@ -6,7 +6,7 @@ export default defineConfig(({ mode }) => {
     return {
       base: '/',
       define: {
-        'process.env.VITE_API_KEY': JSON.stringify(env.VITE_API_KEY)
+        'import.meta.env.VITE_API_KEY': JSON.stringify(env.VITE_API_KEY)
       },
       resolve: {
         alias: {
