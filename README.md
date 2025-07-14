@@ -1,25 +1,14 @@
-# Woken
-An interactive story built around a man in the depths of confusion
-# Woken Interactive Story
+# Run and deploy your AI Studio app
 
-A darkly humorous interactive narrative experience where you wake up in increasingly bizarre situations while dealing with fragmented memories.
+This contains everything you need to run your app locally.
 
-## 🕹️ Features
-- Branching narrative choices
-- Custom action input system
-- Persistent game state (saved in localStorage)
-- Health and inventory tracking
-- Retro-inspired glitch aesthetic
+## Run Locally
 
-## 🛠️ Technologies Used
-- React (v18)
-- TailwindCSS
-- Vanilla JavaScript
-- HTML5
-- localStorage for game persistence
+**Prerequisites:**  Node.js
 
-## 📦 Local Setup
 
-1. Clone the repository:
-```bash
-git clone https://github.com/your-username/woken.git
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`

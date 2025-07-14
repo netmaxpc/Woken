@@ -1,0 +1,6 @@
+{
+  "name": "Woken",
+  "description": "A dark, humorous, and realistic interactive story where you wake up in precarious situations with fragmented memories, hinting at a deeper psychological condition without ever explicitly stating it. The player makes choices and can type custom actions to piece together what happened.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}
