@@ -1,6 +1,12 @@
 [build]
-  command = "npm run build"
+  command = "npm install && npm run build"
   publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[context.production.environment]
+  VITE_API_KEY = "process.env.VITE_API_KEY"
 
 [[redirects]]
   from = "/*"
