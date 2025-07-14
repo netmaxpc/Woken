@@ -13,6 +13,7 @@ import VideoPlayer from './components/VideoPlayer';
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 export default function App(): React.ReactNode {
+  console.log('App rendering, API_KEY present:', !!API_KEY);
   const [currentNodeKey, setCurrentNodeKey] = useState<StoryNodeKey>('start');
   const [journal, setJournal] = useState<string[]>([]);
   const [inventory, setInventory] = useState<string[]>([]);
@@ -20,13 +21,21 @@ export default function App(): React.ReactNode {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [ai, setAi] = useState<GoogleGenAI | null>(null);
   const [showVideo, setShowVideo] = useState<boolean>(false);
+  const [isInitialized, setIsInitialized] = useState<boolean>(false);
 
   useEffect(() => {
-    if (API_KEY) {
-      setAi(new GoogleGenAI({ apiKey: API_KEY }));
-    } else {
-      console.error("VITE_API_KEY is missing. Please set it in your environment variables (.env.local file).");
+    console.log('Initializing app...');
+    try {
+      if (API_KEY) {
+        const genAI = new GoogleGenAI({ apiKey: API_KEY });
+        setAi(genAI);
+        console.log('AI initialized successfully');
+      }
+    } catch (error) {
+      console.error('Error initializing AI:', error);
     }
+
+    setIsInitialized(true);
 
     const savedState = localStorage.getItem('wokenGameState');
     if (savedState) {
@@ -127,6 +136,19 @@ export default function App(): React.ReactNode {
   };
 
   const currentNode = storyTree[currentNodeKey];
+
+  if (!isInitialized) {
+    return <div className="bg-[#0a0a0a] min-h-screen text-gray-200 p-4 flex items-center justify-center">Loading...</div>;
+  }
+
+  if (!currentNode) {
+    console.error('Current node is undefined:', { currentNodeKey, storyTree });
+    return <div className="bg-[#0a0a0a] min-h-screen text-gray-200 p-4 flex items-center justify-center text-red-500">Error: Story node not found</div>;
+  }
+
+  if (!API_KEY) {
+    return <div className="bg-[#0a0a0a] min-h-screen text-gray-200 p-4 flex items-center justify-center text-red-500">Error: API key is missing. Please check your environment variables.</div>;
+  }
 
   return (
     <div className="bg-[#0a0a0a] min-h-screen text-gray-200 p-4 sm:p-6 lg:p-8 flex flex-col">
